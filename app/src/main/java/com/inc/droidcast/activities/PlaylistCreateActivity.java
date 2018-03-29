@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.inc.droidcast.Constants;
 import com.inc.droidcast.R;
 
 import butterknife.BindView;
@@ -14,16 +17,21 @@ import butterknife.ButterKnife;
 
 public class PlaylistCreateActivity extends AppCompatActivity implements View.OnClickListener {
 
-	@BindView(R.id.btn_addPlaylist)
-	Button btnAddPlaylist;
-	@BindView(R.id.txt_playlistName)
-	EditText playlistName;
+	private DatabaseReference firebaseRef_podcastPlaylist;
+
+	@BindView(R.id.btn_addPlaylist) Button btnAddPlaylist;
+	@BindView(R.id.txt_playlistName) EditText playlistName;
 	@BindView(R.id.txt_playlistDescription) EditText playlistDescription;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 
+		firebaseRef_podcastPlaylist = FirebaseDatabase
+				.getInstance()
+				.getReference()
+				.child(Constants.FIREBASE_CHILD_PODCAST_PLAYLIST);
+
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_playlist_create);
 		ButterKnife.bind(this);
 		btnAddPlaylist.setOnClickListener(this);
@@ -32,14 +40,18 @@ public class PlaylistCreateActivity extends AppCompatActivity implements View.On
 	@Override
 	public void onClick(View v) {
 		if (v == btnAddPlaylist) {
-
 			String name = playlistName.getText().toString();
 			String description = playlistDescription.getText().toString();
 
+			firebaseSave_podcastPlaylist(name);
+
 			Intent intent = new Intent(PlaylistCreateActivity.this, PlaylistMenuActivity.class);
-
+			intent.putExtra("name", name);
 			startActivity(intent);
-
 		}
+	}
+
+	public void firebaseSave_podcastPlaylist(String name) {
+		firebaseRef_podcastPlaylist.push().setValue(name);
 	}
 }

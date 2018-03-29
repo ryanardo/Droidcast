@@ -1,0 +1,55 @@
+{
+  "project_info": {
+	"project_number": "287014646998",
+	"firebase_url": "https://droidcast-inc.firebaseio.com",
+	"project_id": "droidcast-inc",
+	"storage_bucket": "droidcast-inc.appspot.com"
+  },
+  "client": [
+	{
+	  "client_info": {
+		"mobilesdk_app_id": "1:287014646998:android:790a1a37ea307464",
+		"android_client_info": {
+		  "package_name": "com.inc.droidcast"
+		}
+	  },
+	  "oauth_client": [
+		{
+		  "client_id": "287014646998-akbkelcaj56b1h8k0vibigjam8gj2dlf.apps.googleusercontent.com",
+		  "client_type": 1,
+		  "android_info": {
+			"package_name": "com.inc.droidcast",
+			"certificate_hash": "bb4ea1eb57e04867503be4e725f7deb71a6e0c8f"
+		  }
+		},
+		{
+		  "client_id": "287014646998-bui928hr0dg5sudalmsurfkbiqiavgpr.apps.googleusercontent.com",
+		  "client_type": 3
+		}
+	  ],
+	  "api_key": [
+		{
+		  "current_key": "AIzaSyA-vLt73G2gYV9G9MbNPcVCWP55lVMibZ8"
+		}
+	  ],
+	  "services": {
+		"analytics_service": {
+		  "status": 1
+		},
+		"appinvite_service": {
+		  "status": 2,
+		  "other_platform_oauth_client": [
+			{
+			  "client_id": "287014646998-bui928hr0dg5sudalmsurfkbiqiavgpr.apps.googleusercontent.com",
+			  "client_type": 3
+			}
+		  ]
+		},
+		"ads_service": {
+		  "status": 2
+		}
+	  }
+	}
+  ],
+  "configuration_version": "1"
+}
