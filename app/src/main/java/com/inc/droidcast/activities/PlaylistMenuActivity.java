@@ -1,4 +1,4 @@
-package com.inc.droidcast;
+package com.inc.droidcast.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.inc.droidcast.R;
+import com.inc.droidcast.adapters.PlaylistMenuAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +31,7 @@ public class PlaylistMenuActivity extends AppCompatActivity implements View.OnCl
 		ButterKnife.bind(this);
 		btnCreatePlaylist.setOnClickListener(this);
 
-		ArrayAdapter_PlaylistMenu adapterPlaylist = new ArrayAdapter_PlaylistMenu(this, android.R.layout.simple_list_item_1, playlistNames, playlistDescriptions);
+		PlaylistMenuAdapter adapterPlaylist = new PlaylistMenuAdapter(this, android.R.layout.simple_list_item_1, playlistNames, playlistDescriptions);
 		lstPlaylists.setAdapter(adapterPlaylist);
 
 	}
