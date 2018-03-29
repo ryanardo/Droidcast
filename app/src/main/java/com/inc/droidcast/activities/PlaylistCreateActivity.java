@@ -1,8 +1,8 @@
 package com.inc.droidcast.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +36,7 @@ public class PlaylistCreateActivity extends AppCompatActivity implements View.On
 			String name = playlistName.getText().toString();
 			String description = playlistDescription.getText().toString();
 
-			Intent intent = new Intent(PlaylistCreateActivity.this, PlaylistMenu.class);
+			Intent intent = new Intent(PlaylistCreateActivity.this, PlaylistMenuActivity.class);
 
 			startActivity(intent);
 
