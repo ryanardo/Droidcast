@@ -10,7 +10,8 @@
 		android:supportsRtl = "true"
 		android:theme = "@style/AppTheme">
 		<activity android:name = ".MainActivity" />
-		<activity android:name = ".PlaylistCreateActivity"></activity>
+		<activity android:name = ".PlaylistCreateActivity" />
+		<activity android:name = ".PlaylistMenuActivity"></activity>
 	</application>
 
 </manifest>
