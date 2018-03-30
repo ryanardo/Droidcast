@@ -17,7 +17,8 @@
 			</intent-filter>
 		</activity>
 		<activity android:name = ".ui.PlaylistCreateActivity" />
-		<activity android:name = ".ui.PlaylistMenuActivity"></activity>
+		<activity android:name = ".ui.PlaylistMenuActivity" />
+		<activity android:name = ".ui.PodcastSearchActivity"></activity>
 	</application>
 
 </manifest>
