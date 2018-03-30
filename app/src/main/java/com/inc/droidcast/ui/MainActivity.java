@@ -1,4 +1,4 @@
-package com.inc.droidcast.activities;
+package com.inc.droidcast.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
