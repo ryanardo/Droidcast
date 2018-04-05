@@ -1,6 +1,8 @@
 package com.inc.droidcast.models;
 
 import java.util.ArrayList;
+
+import org.parceler.Parcel;
 import java.util.List;
 
 @Parcel
