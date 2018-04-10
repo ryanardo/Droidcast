@@ -45,9 +45,9 @@ public class AppleAPI {
 			JSONArray podcastsJSON = podcastJSON.getJSONArray("results");
 			for (int i = 0; i < podcastsJSON.length(); i++) {
 				JSONObject podcastJSON = podcastsJSON.getJSONObject(i);
-				int artistId = podcastJSON.getInt("artistId");
-				int collectionId = podcastJSON.getInt("collectionId");
-				int trackId = podcastJSON.getString("trackId");
+				String artistId = podcastJSON.getInt("artistId");
+				String collectionId = podcastJSON.getInt("collectionId");
+				String trackId = podcastJSON.getString("trackId");
 				String artistName = podcastJSON.getString("artistName");
 				String collectionName = podcastJSON.getString("collectionName");
 				String trackName = podcastJSON.getString("trackName");
