@@ -2,11 +2,10 @@ package com.inc.droidcast.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.SyncStateContract;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -14,15 +13,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.inc.droidcast.Constants;
 import com.inc.droidcast.R;
 import com.inc.droidcast.adapters.PodcastListAdapter;
 import com.inc.droidcast.models.Podcast;
+import com.inc.droidcast.services.AppleAPI;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class PodcastSearchActivity extends AppCompatActivity {
 	public static final String TAG = PodcastSearchActivity.class.getSimpleName();
@@ -47,7 +51,7 @@ public class PodcastSearchActivity extends AppCompatActivity {
 		getPodcasts(podcast);
 
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		mRecentPodcast = mSharedPreferences.getString(SyncStateContract.Constants.PREFERENCES_PODCAST_KEY, null);
+		mRecentPodcast = mSharedPreferences.getString(Constants.PREFERENCES_PODCAST_KEY, null);
 		if (mRecentPodcast != null) {
 			getPodcasts(mRecentPodcast);
 		}
@@ -89,10 +93,9 @@ public class PodcastSearchActivity extends AppCompatActivity {
 	}
 
 	private void getPodcasts(String podcast) {
-		final YelpService yelpService = new YelpService();
+		final AppleAPI appleAPI = new AppleAPI();
 
-		YelpService.findPodcasts(podcast, new Callback() {
-
+		AppleAPI.findPodcast(podcast, new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				e.printStackTrace();
@@ -100,27 +103,25 @@ public class PodcastSearchActivity extends AppCompatActivity {
 
 			@Override
 			public void onResponse(Call call, Response response) {
-				podcasts = yelpService.processResults(response);
+				podcasts = appleAPI.processResults(response);
 
 				PodcastSearchActivity.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						mAdapter = new PodcastListAdapter(getApplicationContext(), podcasts);
 						mRecyclerView.setAdapter(mAdapter);
-						RecyclerView.LayoutManager layoutManager =
-								new LinearLayoutManager(PodcastSearchActivity.this);
+						RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PodcastSearchActivity.this);
 						mRecyclerView.setLayoutManager(layoutManager);
 						mRecyclerView.setHasFixedSize(true);
 					}
 				});
 
 			}
-
 		});
 	}
 
 	private void addToSharedPreferences(String podcast) {
-		mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, podcast).apply();
+		mEditor.putString(Constants.PREFERENCES_PODCAST_KEY, podcast).apply();
 	}
 
 }

@@ -32,7 +32,7 @@ public class PodcastDetailFragment extends Fragment implements View.OnClickListe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		podcast = Parcels.unwrap(getArguments().getParcelable("restaurant"));
+		podcast = Parcels.unwrap(getArguments().getParcelable("podcast"));
 	}
 
 	@Override
