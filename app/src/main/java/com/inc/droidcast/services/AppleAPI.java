@@ -36,17 +36,18 @@ public class AppleAPI {
 		call.enqueue(callback);
 	}
 
-	public ArrayList<Podcast> processResults(Response response) {
+	public static ArrayList<Podcast> processResults(Response response) {
 		ArrayList<Podcast> podcasts = new ArrayList<>();
 
 		try {
 			String jsonData = response.body().toString();
 			JSONObject podcastJSON = new JSONObject(jsonData);
 			JSONArray podcastsJSON = podcastJSON.getJSONArray("results");
+
 			for (int i = 0; i < podcastsJSON.length(); i++) {
 				JSONObject podcastJSON = podcastsJSON.getJSONObject(i);
-				String artistId = podcastJSON.getInt("artistId");
-				String collectionId = podcastJSON.getInt("collectionId");
+				int artistId = podcastJSON.getInt("artistId");
+				int collectionId = podcastJSON.getInt("collectionId");
 				String trackId = podcastJSON.getString("trackId");
 				String artistName = podcastJSON.getString("artistName");
 				String collectionName = podcastJSON.getString("collectionName");
