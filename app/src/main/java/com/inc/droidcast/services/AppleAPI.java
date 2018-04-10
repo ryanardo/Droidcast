@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -41,11 +42,11 @@ public class AppleAPI {
 
 		try {
 			String jsonData = response.body().toString();
-			JSONObject podcastJSON = new JSONObject(jsonData);
-			JSONArray podcastsJSON = podcastJSON.getJSONArray("results");
+			JSONObject jsonPodcast = new JSONObject(jsonData);
+			JSONArray jsonPodcasts  = jsonPodcast.getJSONArray("results");
 
-			for (int i = 0; i < podcastsJSON.length(); i++) {
-				JSONObject podcastJSON = podcastsJSON.getJSONObject(i);
+			for (int i = 0; i < jsonPodcasts.length(); i++) {
+				JSONObject podcastJSON = jsonPodcasts.getJSONObject(i);
 				int artistId = podcastJSON.getInt("artistId");
 				int collectionId = podcastJSON.getInt("collectionId");
 				String trackId = podcastJSON.getString("trackId");
@@ -77,5 +78,6 @@ public class AppleAPI {
 		} catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+		return podcasts;
+	}
 }
