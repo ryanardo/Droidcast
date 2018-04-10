@@ -1,37 +1,42 @@
 package com.inc.droidcast.ui;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inc.droidcast.R;
+import com.inc.droidcast.models.Podcast;
+
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 
 public class PodcastDetailFragment extends Fragment implements View.OnClickListener {
-	@BindView(R.id.restaurantImageView) ImageView mImageLabel;
-	@BindView(R.id.restaurantNameTextView) TextView mNameLabel;
-	@BindView(R.id.cuisineTextView) TextView mCategoriesLabel;
-	@BindView(R.id.ratingTextView) TextView mRatingLabel;
-	@BindView(R.id.websiteTextView) TextView mWebsiteLabel;
-	@BindView(R.id.phoneTextView) TextView mPhoneLabel;
-	@BindView(R.id.addressTextView) TextView mAddressLabel;
-	@BindView(R.id.saveRestaurantButton) TextView mSaveRestaurantButton;
+	@BindView(R.id.podcastArtworkUrl100) ImageView podcastArtworkCover;
+	@BindView(R.id.podcastCollectionName) TextView podcastTitle;
+	@BindView(R.id.podcastArtistName) TextView podcastArtist;
+	@BindView(R.id.podcastPrimaryGenreName) TextView podcastGenre;
 
-	private Restaurant mRestaurant;
+	private Podcast podcast;
 
-	public static RestaurantDetailFragment newInstance(Restaurant restaurant) {
-		RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
+	public static PodcastDetailFragment newInstance(Podcast podcast) {
+		PodcastDetailFragment podcastDetailFragment = new PodcastDetailFragment();
 		Bundle args = new Bundle();
-		args.putParcelable("restaurant", Parcels.wrap(restaurant));
-		restaurantDetailFragment.setArguments(args);
-		return restaurantDetailFragment;
+		args.putParcelable("podcast", Parcels.wrap(podcast));
+		podcastDetailFragment.setArguments(args);
+		return podcastDetailFragment;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mRestaurant = Parcels.unwrap(getArguments().getParcelable("restaurant"));
+		podcast = Parcels.unwrap(getArguments().getParcelable("restaurant"));
 	}
-} // End of the 'RestaurantDetailFragment'
+
+	@Override
+	public void onClick(View v) {
+
+	}
+} // End of the 'PodcastDetailFragment'
