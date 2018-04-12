@@ -1,3 +1,4 @@
 <resources>
-	<string name = "app_name">Droidcast</string>
+    <string name="app_name">Droidcast</string>
+    <string name="title_activity_podcast_detail">PodcastDetailActivity</string>
 </resources>
