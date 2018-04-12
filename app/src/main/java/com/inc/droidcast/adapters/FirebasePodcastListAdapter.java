@@ -1,5 +1,6 @@
 package com.inc.droidcast.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +19,7 @@ import com.google.firebase.database.Query;
 import com.inc.droidcast.Constants;
 import com.inc.droidcast.R;
 import com.inc.droidcast.models.Podcast;
+import com.inc.droidcast.ui.PodcastDetailActivity;
 import com.inc.droidcast.ui.PodcastDetailFragment;
 import com.inc.droidcast.util.ItemTouchHelperAdapter;
 import com.inc.droidcast.util.OnStartDragListener;
@@ -69,14 +71,15 @@ public class FirebasePodcastListAdapter extends FirebaseRecyclerAdapter<Podcast,
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void populateViewHolder(final FirebasePodcastViewHolder viewHolder, Podcast model, int position) {
         viewHolder.bindPodcast(model);
 
-        mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
-        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            createDetailFragment(0);
-        }
+//        mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
+//        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            createDetailFragment(0);
+//        }
 
         viewHolder.mPodcastImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -92,26 +95,33 @@ public class FirebasePodcastListAdapter extends FirebaseRecyclerAdapter<Podcast,
             @Override
             public void onClick(View v) {
                 int itemPosition = viewHolder.getAdapterPosition();
-                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    createDetailFragment(itemPosition);
-                } else {
-                    Intent intent = new Intent(mContext PodcastDetailActivity.class);
-                    intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-                    intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcasts));
-                    intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
-                    mContext.startActivity(intent);
-                }
+
+                Intent intent = new Intent(mContext, PodcastDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcasts));
+                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
+                mContext.startActivity(intent);
+
+                //                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                    createDetailFragment(itemPosition);
+//                } else {
+//                    Intent intent = new Intent(mContext PodcastDetailActivity.class);
+//                    intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+//                    intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcasts));
+//                    intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
+//                    mContext.startActivity(intent);
+//                }
             }
         });
 
     }
 
-    private void createDetailFragment(int position) {
-        PodcastDetailFragment detailFragment = PodcastDetailFragment.newInstance(mPodcasts, position, Constants.SOURCE_SAVED);
-        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.podcastDetailContainer, detailFragment);
-        ft.commit();
-    }
+//    private void createDetailFragment(int position) {
+//        PodcastDetailFragment detailFragment = PodcastDetailFragment.newInstance(mPodcasts, position, Constants.SOURCE_SAVED);
+//        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.podcastDetailContainer, detailFragment);
+//        ft.commit();
+//    }
 
     @Override
     public boolean onItemMove(int fromPosition, int toPostion) {

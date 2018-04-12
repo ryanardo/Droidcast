@@ -33,7 +33,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'
 
-    implementation 'com.google.firebase:firebase-database:12.0.1'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.firebaseui:firebase-ui-database:0.4.1'
 
     implementation 'org.parceler:parceler-api:1.1.6'

@@ -25,6 +25,7 @@ public class Podcast {
 	List<String> genreIds = new ArrayList<>();
 	List<String> genres = new ArrayList<>();
 	String index;
+	String pushId;
 
 	public Podcast() {
 	}
@@ -190,4 +191,8 @@ public class Podcast {
 	public void setIndex(String index) {
 		this.index = index;
 	}
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 }

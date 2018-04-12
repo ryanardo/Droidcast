@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.inc.droidcast.Constants;
 import com.inc.droidcast.R;
+import com.inc.droidcast.adapters.PodcastPagerAdapter;
+import com.inc.droidcast.models.Podcast;
 
 import org.parceler.Parcels;
 
@@ -22,20 +25,20 @@ public class PodcastDetailActivity extends AppCompatActivity {
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
     private PodcastPagerAdapter adapterViewPager;
-    ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+    ArrayList<Podcast> mPodcasts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_detail);
+        setContentView(R.layout.activity_podcast_detail);
         ButterKnife.bind(this);
 
         mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
 
-        mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_RESTAURANTS));
+        mPodcasts = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_PODCASTS));
         int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
-        adapterViewPager = new RestaurantPagerAdapter(getSupportFragmentManager(), mRestaurants, mSource);
+        adapterViewPager = new PodcastPagerAdapter(getSupportFragmentManager(), mPodcasts, mSource);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }

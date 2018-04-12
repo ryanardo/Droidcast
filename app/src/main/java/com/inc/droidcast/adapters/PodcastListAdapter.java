@@ -20,6 +20,7 @@ import com.inc.droidcast.util.OnPodcastSelectedListener;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,10 +36,13 @@ public class PodcastListAdapter extends RecyclerView.Adapter<PodcastListAdapter.
 	private OnPodcastSelectedListener mOnPodcastSelectedListener;
 
 
-	public PodcastListAdapter(Context context, ArrayList<Podcast> mPodcasts, OnPodcastSelectedListener podcastSelectedListener) {
+	public PodcastListAdapter(Context context, ArrayList<Podcast> podcasts, OnPodcastSelectedListener podcastSelectedListener) {
 		mContext = context;
 		mPodcasts = podcasts;
 		mOnPodcastSelectedListener = podcastSelectedListener;
+	}
+
+	public PodcastListAdapter(Context applicationContext, ArrayList<Podcast> podcasts) {
 	}
 
 	@Override
@@ -79,9 +83,9 @@ public class PodcastListAdapter extends RecyclerView.Adapter<PodcastListAdapter.
 			mPodcasts = podcasts;
 			mPodcastSelectedListener = podcastSelectedListener;
 
-			if(mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-				createDetailFragment(0);
-			}
+//			if(mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+//				createDetailFragment(0);
+//			}
 
 			itemView.setOnClickListener(this);
 
@@ -91,34 +95,42 @@ public class PodcastListAdapter extends RecyclerView.Adapter<PodcastListAdapter.
 		public void onClick(View v) {
 			int itemPosition = getLayoutPosition();
 			mPodcastSelectedListener.onPodcastSelected(itemPosition, mPodcast, Constants.SOURCE_FIND);
-			if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-				createDetailFragment(itemPosition);
-			} else {
-				Intent intent = new Intent(mContext, PodcastDetailFragment.class);
-				intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-				intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcast));
-				intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
-				mContext.startActivity(intent);
-			}
+
+			Intent intent = new Intent(mContext, PodcastDetailFragment.class);
+			intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+			intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcast));
+			intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
+			mContext.startActivity(intent);
+
+
+			//			if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+//				createDetailFragment(itemPosition);
+//			} else {
+//				Intent intent = new Intent(mContext, PodcastDetailFragment.class);
+//				intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+//				intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcast));
+//				intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
+//				mContext.startActivity(intent);
+//			}
 		}
 
-		private void createDetailFragment(int position) {
-			PodcastDetailFragment detailFragment = PodcastDetailFragment.newInstance(mPodcast, position, Constants.SOURCE_FIND);
-			FragmentTransaction ft = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-			ft.replace(R.id.podcastDetailContainer, detailFragment);
-			ft.commit();
-
-		}
+//		private void createDetailFragment(int position) {
+//			PodcastDetailFragment detailFragment = PodcastDetailFragment.newInstance(mPodcast, position, Constants.SOURCE_FIND);
+//			FragmentTransaction ft = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+//			ft.replace(R.id.podcastDetailContainer, detailFragment);
+//			ft.commit();
+//
+//		}
 
 		public void bindPodcast(Podcast podcast) {
-			Picasso.with(mContext)
-					.load(podcast.getArtworkUrl100())
-					.resize(MAX_WIDTH, MAX_HEIGHT)
-					.centerCrop()
-					.into(podcastCoverArtwork100);
+//			Picasso.with(mContext)
+//					.load(podcast.getArtworkUrl100())
+//					.resize(MAX_WIDTH, MAX_HEIGHT)
+//					.centerCrop()
+//					.into(podcastCoverArtwork100);
 			podcastTitle.setText(podcast.getCollectionName());
-			podcastGenre.setText(podcast.getPrimaryGenreName());
-			podcastArtist.setText(podcast.getArtistName());
+//			podcastGenre.setText(podcast.getPrimaryGenreName());
+//			podcastArtist.setText(podcast.getArtistName());
 		}
 	}
 }
