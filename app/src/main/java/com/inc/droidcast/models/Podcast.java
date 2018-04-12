@@ -24,6 +24,7 @@ public class Podcast {
 	String artworkUrl600;
 	List<String> genreIds = new ArrayList<>();
 	List<String> genres = new ArrayList<>();
+	String index;
 
 	public Podcast() {
 	}
@@ -184,5 +185,9 @@ public class Podcast {
 
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
+	}
+
+	public void setIndex(String index) {
+		this.index = index;
 	}
 }
