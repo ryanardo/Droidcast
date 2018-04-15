@@ -11,4 +11,11 @@
 		android:layout_height="match_parent"
 		android:id="@+id/recyclerView"/>
 
+	<fragment
+		android:id="@+id/fragmentRestaurantList"
+		android:name="com.inc.droidcast.ui.PodcastListFragment"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		tools:layout="@layout/fragment_podcast_list" />
+
 </RelativeLayout>
