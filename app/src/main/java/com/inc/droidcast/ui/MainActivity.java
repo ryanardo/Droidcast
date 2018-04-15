@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
+import com.inc.droidcast.Constants;
 import com.inc.droidcast.R;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.inc.droidcast.models.Podcast;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 	@BindView(R.id.btn_podcasts) Button btnPodcasts;
 	@BindView(R.id.btn_podcastSearch) Button btnPodcastSearch;
-//	@BindView(R.id.srch_podcastQuery) Button podcastSearch;
+	@BindView(R.id.srch_podcastQuery) EditText podcastQuery;
+
+	ArrayList<Podcast> podcasts;
 
 	private FirebaseAuth mAuth;
 	private FirebaseAuth.AuthStateListener mAuthListener;
@@ -94,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@Override
 	public void onClick(View v) {
 		if(v == btnPodcastSearch) {
+			String mPodcastQuery = podcastQuery.getText().toString();
 			Intent intent = new Intent(MainActivity.this, PodcastSearchActivity.class);
+			intent.putExtra("podcast", mPodcastQuery);
 			startActivity(intent);
 		}
 //		if(v == btnPlaylist) {

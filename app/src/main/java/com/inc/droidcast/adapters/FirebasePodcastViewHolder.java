@@ -34,15 +34,13 @@ public class FirebasePodcastViewHolder extends RecyclerView.ViewHolder implement
         TextView podcastprimaryGenre = (TextView) mView.findViewById(R.id.podcastPrimaryGenreName);
 
         Picasso.with(mContext)
-                .load(podcast.getArtworkUrl100())
+                .load(podcast.getTrackCoverArtwork())
                 .resize(MAX_WIDTH, MAX_HEIGHT)
                 .centerCrop()
                 .into(mPodcastImageView);
 
-        podcastTitle.setText(podcast.getCollectionName());
-//        podcastArtist.setText(podcast.getArtistName().get(0));
-        podcastArtist.setText(podcast.getArtistName());
-        podcastprimaryGenre.setText("Genre: " + podcast.getPrimaryGenreName());
+        podcastTitle.setText(podcast.getTrackTitle());
+        podcastArtist.setText(podcast.getTrackArtist());
     }
 
     //    @Override

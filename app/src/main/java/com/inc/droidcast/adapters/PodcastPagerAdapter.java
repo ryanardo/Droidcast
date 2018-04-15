@@ -31,6 +31,6 @@ public class PodcastPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mPodcasts.get(position).getCollectionName();
+        return mPodcasts.get(position).getTrackTitle();
     }
 }

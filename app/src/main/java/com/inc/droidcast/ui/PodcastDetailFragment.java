@@ -70,14 +70,13 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 		ButterKnife.bind(this, view);
 
 		Picasso.with(view.getContext())
-				.load(mPodcast.getArtworkUrl100())
+				.load(mPodcast.getTrackCoverArtwork())
 				.resize(MAX_WIDTH, MAX_HEIGHT)
 				.centerCrop()
 				.into(podcastArtwork100);
 
-		podcastTitle.setText(mPodcast.getCollectionName());
-		podcastArtist.setText(mPodcast.getArtistName());
-		podcastPrimaryGenre.setText(mPodcast.getPrimaryGenreName());
+		podcastTitle.setText(mPodcast.getTrackTitle());
+		podcastArtist.setText(mPodcast.getTrackArtist());
 		return view;
 	}
 
