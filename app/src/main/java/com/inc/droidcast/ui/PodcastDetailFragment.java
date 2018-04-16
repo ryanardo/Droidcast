@@ -41,15 +41,14 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 	private int mPosition;
 	private static final int MAX_WIDTH = 400;
 	private static final int MAX_HEIGHT = 300;
-	private String mSource;
 
-	public static PodcastDetailFragment newInstance(ArrayList<Podcast> podcasts, Integer position, String source) {
+	public static PodcastDetailFragment newInstance(ArrayList<Podcast> podcasts, Integer position) {
 		PodcastDetailFragment podcastDetailFragment = new PodcastDetailFragment();
 		Bundle args = new Bundle();
 
 		args.putParcelable(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(podcasts));
 		args.putInt(Constants.EXTRA_KEY_POSITION, position);
-		args.putString(Constants.KEY_SOURCE, source);
+//		args.putString(Constants.KEY_SOURCE, source);
 
 		podcastDetailFragment.setArguments(args);
 		return podcastDetailFragment;

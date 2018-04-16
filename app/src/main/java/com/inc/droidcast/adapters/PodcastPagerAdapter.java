@@ -11,17 +11,15 @@ import java.util.ArrayList;
 
 public class PodcastPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Podcast> mPodcasts;
-    private String mSource;
 
-    public PodcastPagerAdapter(FragmentManager fm, ArrayList<Podcast> podcasts, String source) {
+    public PodcastPagerAdapter(FragmentManager fm, ArrayList<Podcast> podcasts) {
         super(fm);
         mPodcasts = podcasts;
-        mSource = source;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return PodcastDetailFragment.newInstance(mPodcasts, position, mSource);
+        return PodcastDetailFragment.newInstance(mPodcasts, position);
     }
 
     @Override

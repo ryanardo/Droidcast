@@ -15,8 +15,8 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 public class PodcastListActivity extends AppCompatActivity implements OnPodcastSelectedListener {
-    private Integer position;
-    ArrayList<Podcast> podcasts;
+    private Integer mPosition;
+    ArrayList<Podcast> mPodcasts;
     String source;
 
     @Override
@@ -26,15 +26,15 @@ public class PodcastListActivity extends AppCompatActivity implements OnPodcastS
 
         if(savedInstanceState != null) {
             if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                position = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
-                podcasts = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_PODCASTS));
-                source = savedInstanceState.getString(Constants.KEY_SOURCE);
+                mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
+                mPodcasts = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_PODCASTS));
+//                source = savedInstanceState.getString(Constants.KEY_SOURCE);
 
-                if (position != null && podcasts != null) {
+                if (mPosition != null && mPodcasts != null) {
                     Intent intent = new Intent(this, PodcastDetailActivity.class);
-                    intent.putExtra(Constants.EXTRA_KEY_POSITION, position);
-                    intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(podcasts));
-                    intent.putExtra(Constants.KEY_SOURCE, source);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcasts));
+//                    intent.putExtra(Constants.KEY_SOURCE, source);
                     startActivity(intent);
                 }
             }
@@ -45,16 +45,16 @@ public class PodcastListActivity extends AppCompatActivity implements OnPodcastS
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (position != null && podcasts != null) {
-            outState.putInt(Constants.EXTRA_KEY_POSITION, position);
-            outState.putParcelable(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(podcasts));
-            outState.putString(Constants.KEY_SOURCE, source);
+        if (mPosition != null && mPodcasts != null) {
+            outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
+            outState.putParcelable(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcasts));
+//            outState.putString(Constants.KEY_SOURCE, source);
         }
     }
 
     @Override
     public void onPodcastSelected(Integer position, ArrayList<Podcast> podcasts) {
-        this.position = position;
-        this.podcasts = podcasts;
+        mPosition = position;
+        mPodcasts = podcasts;
     }
 }

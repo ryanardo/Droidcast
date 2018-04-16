@@ -31,7 +31,7 @@ public class PodcastDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_podcast_detail);
         ButterKnife.bind(this);
 
-        mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
+//        mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
 
         mPodcasts = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_PODCASTS));
         int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
