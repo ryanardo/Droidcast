@@ -21,9 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PodcastDetailActivity extends AppCompatActivity {
-    private String mSource;
-    @BindView(R.id.viewPager)
-    ViewPager mViewPager;
+    @BindView(R.id.viewPager) ViewPager mViewPager;
     private PodcastPagerAdapter adapterViewPager;
     ArrayList<Podcast> mPodcasts = new ArrayList<>();
 
@@ -38,7 +36,7 @@ public class PodcastDetailActivity extends AppCompatActivity {
         mPodcasts = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_PODCASTS));
         int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
-        adapterViewPager = new PodcastPagerAdapter(getSupportFragmentManager(), mPodcasts, mSource);
+        adapterViewPager = new PodcastPagerAdapter(getSupportFragmentManager(), mPodcasts);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }

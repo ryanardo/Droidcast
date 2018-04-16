@@ -21,6 +21,7 @@ import com.inc.droidcast.models.Podcast;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -31,10 +32,8 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 	@BindView(R.id.podcastArtworkUrl100) ImageView podcastArtwork100;
 	@BindView(R.id.podcastCollectionName) TextView podcastTitle;
 	@BindView(R.id.podcastArtistName) TextView podcastArtist;
-	@BindView(R.id.podcastPrimaryGenreName) TextView podcastPrimaryGenre;
-//	@BindView(R.id.podcast) TextView mWebsiteLabel;
-//	@BindView(R.id.podcast) TextView mPhoneLabel;
-//	@BindView(R.id.podcast) TextView mAddressLabel;
+//	@BindView(R.id.podcastPrimaryGenreName) TextView podcastPrimaryGenre;
+	@BindView(R.id.podcastWebsite) TextView trackWebsite;
 	@BindView(R.id.savePodcastButton) TextView mSavePodcastButton;
 
 	private Podcast mPodcast;
@@ -77,6 +76,8 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 
 		podcastTitle.setText(mPodcast.getTrackTitle());
 		podcastArtist.setText(mPodcast.getTrackArtist());
+		trackWebsite.setOnClickListener(this);
+
 		return view;
 	}
 
@@ -95,6 +96,11 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 			mPodcast.setPushId(pushId);
 			pushRef.setValue(mPodcast);
 
+			if (v == trackWebsite) {
+				Intent webIntent = new Intent(Intent.ACTION_VIEW,
+						Uri.parse(mPodcast.getTrackWebsite()));
+				startActivity(webIntent);
+			}
 
 			Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 		}

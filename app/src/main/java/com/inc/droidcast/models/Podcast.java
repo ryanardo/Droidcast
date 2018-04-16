@@ -11,6 +11,7 @@ public class Podcast {
 	String trackTitle;
 	String trackArtist;
 	String trackCoverArtwork;
+	String trackWebsite;
 	ArrayList<String>images = new ArrayList<>();
 	String index;
 	String pushId;
@@ -18,9 +19,10 @@ public class Podcast {
 	public Podcast() {
 	}
 
-	public Podcast(String trackTitle, String trackArtist, String trackCoverArtwork) {
+	public Podcast(String trackTitle, String trackArtist, String trackCoverArtwork, String trackWebsite) {
 		this.trackTitle = trackTitle;
 		this.trackArtist = trackArtist;
+		this.trackWebsite = trackWebsite;
 		this.trackCoverArtwork = trackCoverArtwork;
 	}
 
@@ -47,6 +49,14 @@ public class Podcast {
 
 	public void setTrackCoverArtwork(String trackCoverArtwork) {
 		this.trackCoverArtwork = trackCoverArtwork;
+	}
+
+	public String getTrackWebsite() {
+		return trackWebsite;
+	}
+
+	public void setTrackWebsite(String trackWebsite) {
+		this.trackWebsite = trackWebsite;
 	}
 
 	public ArrayList<String> getImages() {

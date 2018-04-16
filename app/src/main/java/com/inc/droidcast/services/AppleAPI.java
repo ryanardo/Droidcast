@@ -50,10 +50,12 @@ public class AppleAPI {
 			JSONObject resultsJSON = lastJSON.getJSONObject("results");
 			JSONObject trackmatchesJSON = resultsJSON.getJSONObject("trackmatches");
 			JSONArray trackJSON = trackmatchesJSON.getJSONArray("track");
+
 			for (int i = 0; i < trackJSON.length(); i++) {
 				JSONObject singleTrackJSON = trackJSON.getJSONObject(i);
 				String trackTitle = singleTrackJSON.getString("name");
 				String trackArtist = singleTrackJSON.getString("artist");
+				String trackWebsite = singleTrackJSON.getString("url");
 				ArrayList<String>images = new ArrayList<>();
 				JSONArray imageJSON = singleTrackJSON.getJSONArray("image");
 				for(int x = 0; x < imageJSON.length(); x++) {
@@ -62,11 +64,11 @@ public class AppleAPI {
 				int imageCount = images.size();
 				if(imageCount == 4 && "".equals(images.get(0))){
 					String img = "https://i.imgur.com/nqCuNyv.png";
-					Podcast podcast = new Podcast(trackTitle, trackArtist, img);
+					Podcast podcast = new Podcast(trackTitle, trackArtist, img, trackWebsite);
 					podcasts.add(podcast);
 				}else{
 					String img = images.get(3);
-					Podcast podcast = new Podcast(trackTitle, trackArtist, img);
+					Podcast podcast = new Podcast(trackTitle, trackArtist, img, trackWebsite);
 					podcasts.add(podcast);
 					Log.d("STUFF", podcasts.toString());
 				}

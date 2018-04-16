@@ -53,9 +53,8 @@ public class PodcastListActivity extends AppCompatActivity implements OnPodcastS
     }
 
     @Override
-    public void onPodcastSelected(Integer position, ArrayList<Podcast> podcasts, String source) {
+    public void onPodcastSelected(Integer position, ArrayList<Podcast> podcasts) {
         this.position = position;
         this.podcasts = podcasts;
-        this.source = source;
     }
 }
