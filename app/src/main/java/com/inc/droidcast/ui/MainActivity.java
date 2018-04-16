@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.inc.droidcast.Constants;
 import com.inc.droidcast.R;
 
@@ -33,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	@BindView(R.id.srch_podcastQuery) EditText podcastQuery;
 
 	ArrayList<Podcast> podcasts;
+
+	private DatabaseReference mSearchedPodcastReference;
+	private ValueEventListener mSearchedPodcastReferenceListener;
 
 	private FirebaseAuth mAuth;
 	private FirebaseAuth.AuthStateListener mAuthListener;
@@ -60,6 +68,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			}
 		};
 
+		mSearchedPodcastReference = FirebaseDatabase
+				.getInstance()
+				.getReference()
+				.child(Constants.FIREBASE_CHILD_PODCAST_SEARCHED);
+
+		mSearchedPodcastReferenceListener = mSearchedPodcastReference.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				for (DataSnapshot podcastSnapshot : dataSnapshot.getChildren()) {
+					String podcast = podcastSnapshot.getValue().toString();
+				}
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+
+			}
+		});
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		ButterKnife.bind(this);
 	}
 
 	@Override
