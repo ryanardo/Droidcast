@@ -42,11 +42,8 @@ public class PodcastListFragment extends Fragment {
     private String mRecentAddress;
     private OnPodcastSelectedListener mOnPodcastSelectedListener;
 
-
-
     public PodcastListFragment() {
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -73,7 +70,7 @@ public class PodcastListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_podcast_list, container, false);
         ButterKnife.bind(this, view);
-        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_PODCAST_KEY, null);
+//        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_PODCAST_KEY, null);
 
         if (mRecentAddress != null) {
             getRestaurants(mRecentAddress);
@@ -81,7 +78,6 @@ public class PodcastListFragment extends Fragment {
 
         return view;
     }
-
 
     public void getRestaurants(String podcast) {
         final AppleAPI appleAPI = new AppleAPI();
@@ -124,7 +120,7 @@ public class PodcastListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                addToSharedPreferences(query);
+//                addToSharedPreferences(query);
                 getRestaurants(query);
                 return false;
             }
@@ -141,10 +137,8 @@ public class PodcastListFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addToSharedPreferences(String podcast) {
-        mEditor.putString(Constants.PREFERENCES_PODCAST_KEY, podcast).apply();
-    }
-
-
+//    private void addToSharedPreferences(String podcast) {
+//        mEditor.putString(Constants.PREFERENCES_PODCAST_KEY, podcast).apply();
+//    }
 
 }

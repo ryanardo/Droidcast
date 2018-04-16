@@ -65,7 +65,6 @@ public class PodcastListAdapter extends RecyclerView.Adapter<PodcastListAdapter.
 	public class PodcastViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		@BindView(R.id.podcastArtworkUrl100) ImageView podcastCoverArtwork100;
 		@BindView(R.id.podcastCollectionName) TextView podcastTitle;
-		@BindView(R.id.podcastPrimaryGenreName) TextView podcastGenre;
 		@BindView(R.id.podcastArtistName) TextView podcastArtist;
 
 		private Context mContext;
@@ -94,14 +93,12 @@ public class PodcastListAdapter extends RecyclerView.Adapter<PodcastListAdapter.
 		@Override
 		public void onClick(View v) {
 			int itemPosition = getLayoutPosition();
-			mPodcastSelectedListener.onPodcastSelected(itemPosition, mPodcast, Constants.SOURCE_FIND);
+			mPodcastSelectedListener.onPodcastSelected(itemPosition, mPodcast);
 
 			Intent intent = new Intent(mContext, PodcastDetailFragment.class);
 			intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
 			intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcast));
-			intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
 			mContext.startActivity(intent);
-
 
 			//			if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 //				createDetailFragment(itemPosition);
@@ -123,14 +120,13 @@ public class PodcastListAdapter extends RecyclerView.Adapter<PodcastListAdapter.
 //		}
 
 		public void bindPodcast(Podcast podcast) {
-//			Picasso.with(mContext)
-//					.load(podcast.getArtworkUrl100())
-//					.resize(MAX_WIDTH, MAX_HEIGHT)
-//					.centerCrop()
-//					.into(podcastCoverArtwork100);
-			podcastTitle.setText(podcast.getCollectionName());
-//			podcastGenre.setText(podcast.getPrimaryGenreName());
-//			podcastArtist.setText(podcast.getArtistName());
+			Picasso.with(mContext)
+					.load(podcast.getTrackCoverArtwork())
+					.resize(MAX_WIDTH, MAX_HEIGHT)
+					.centerCrop()
+					.into(podcastCoverArtwork100);
+			podcastTitle.setText(podcast.getTrackTitle());
+			podcastArtist.setText(podcast.getTrackArtist());
 		}
 	}
 }

@@ -99,7 +99,7 @@ public class FirebasePodcastListAdapter extends FirebaseRecyclerAdapter<Podcast,
                 Intent intent = new Intent(mContext, PodcastDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
                 intent.putExtra(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(mPodcasts));
-                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
+//                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
                 mContext.startActivity(intent);
 
                 //                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {

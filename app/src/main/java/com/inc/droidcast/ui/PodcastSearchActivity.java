@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import com.inc.droidcast.R;
 import com.inc.droidcast.adapters.PodcastListAdapter;
 import com.inc.droidcast.models.Podcast;
 import com.inc.droidcast.services.AppleAPI;
+import com.inc.droidcast.util.OnPodcastSelectedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class PodcastSearchActivity extends AppCompatActivity {
 	public ArrayList<Podcast> podcasts = new ArrayList<>();
 	@BindView(R.id.recyclerView) RecyclerView mRecyclerView;
 	private PodcastListAdapter mAdapter;
+	private OnPodcastSelectedListener mOnPodcastSelectedListener;
 	private SharedPreferences mSharedPreferences;
 	private SharedPreferences.Editor mEditor;
 
@@ -47,11 +50,10 @@ public class PodcastSearchActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 		String podcast = intent.getStringExtra("podcast");
-
 		getPodcasts(podcast);
 
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		mRecentPodcast = mSharedPreferences.getString(Constants.PREFERENCES_PODCAST_KEY, null);
+//		mRecentPodcast = mSharedPreferences.getString(Constants.PREFERENCES_PODCAST_KEY, null);
 		if (mRecentPodcast != null) {
 			getPodcasts(mRecentPodcast);
 		}
@@ -73,7 +75,7 @@ public class PodcastSearchActivity extends AppCompatActivity {
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				addToSharedPreferences(query);
+//				addToSharedPreferences(query);
 				getPodcasts(query);
 				return false;
 			}
@@ -108,7 +110,7 @@ public class PodcastSearchActivity extends AppCompatActivity {
 				PodcastSearchActivity.this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						mAdapter = new PodcastListAdapter(getApplicationContext(), podcasts);
+						mAdapter = new PodcastListAdapter(getApplicationContext(), podcasts, mOnPodcastSelectedListener);
 						mRecyclerView.setAdapter(mAdapter);
 						RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PodcastSearchActivity.this);
 						mRecyclerView.setLayoutManager(layoutManager);
@@ -120,8 +122,8 @@ public class PodcastSearchActivity extends AppCompatActivity {
 		});
 	}
 
-	private void addToSharedPreferences(String podcast) {
-		mEditor.putString(Constants.PREFERENCES_PODCAST_KEY, podcast).apply();
-	}
+//	private void addToSharedPreferences(String podcast) {
+//		mEditor.putString(Constants.PREFERENCES_PODCAST_KEY, podcast).apply();
+//	}
 
 }

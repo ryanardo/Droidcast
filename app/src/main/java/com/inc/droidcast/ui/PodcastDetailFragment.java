@@ -21,6 +21,7 @@ import com.inc.droidcast.models.Podcast;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -31,10 +32,8 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 	@BindView(R.id.podcastArtworkUrl100) ImageView podcastArtwork100;
 	@BindView(R.id.podcastCollectionName) TextView podcastTitle;
 	@BindView(R.id.podcastArtistName) TextView podcastArtist;
-	@BindView(R.id.podcastPrimaryGenreName) TextView podcastPrimaryGenre;
-//	@BindView(R.id.podcast) TextView mWebsiteLabel;
-//	@BindView(R.id.podcast) TextView mPhoneLabel;
-//	@BindView(R.id.podcast) TextView mAddressLabel;
+//	@BindView(R.id.podcastPrimaryGenreName) TextView podcastPrimaryGenre;
+	@BindView(R.id.podcastWebsite) TextView trackWebsite;
 	@BindView(R.id.savePodcastButton) TextView mSavePodcastButton;
 
 	private Podcast mPodcast;
@@ -42,15 +41,14 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 	private int mPosition;
 	private static final int MAX_WIDTH = 400;
 	private static final int MAX_HEIGHT = 300;
-	private String mSource;
 
-	public static PodcastDetailFragment newInstance(ArrayList<Podcast> podcasts, Integer position, String source) {
+	public static PodcastDetailFragment newInstance(ArrayList<Podcast> podcasts, Integer position) {
 		PodcastDetailFragment podcastDetailFragment = new PodcastDetailFragment();
 		Bundle args = new Bundle();
 
 		args.putParcelable(Constants.EXTRA_KEY_PODCASTS, Parcels.wrap(podcasts));
 		args.putInt(Constants.EXTRA_KEY_POSITION, position);
-		args.putString(Constants.KEY_SOURCE, source);
+//		args.putString(Constants.KEY_SOURCE, source);
 
 		podcastDetailFragment.setArguments(args);
 		return podcastDetailFragment;
@@ -70,14 +68,15 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 		ButterKnife.bind(this, view);
 
 		Picasso.with(view.getContext())
-				.load(mPodcast.getArtworkUrl100())
+				.load(mPodcast.getTrackCoverArtwork())
 				.resize(MAX_WIDTH, MAX_HEIGHT)
 				.centerCrop()
 				.into(podcastArtwork100);
 
-		podcastTitle.setText(mPodcast.getCollectionName());
-		podcastArtist.setText(mPodcast.getArtistName());
-		podcastPrimaryGenre.setText(mPodcast.getPrimaryGenreName());
+		podcastTitle.setText(mPodcast.getTrackTitle());
+		podcastArtist.setText(mPodcast.getTrackArtist());
+		trackWebsite.setOnClickListener(this);
+
 		return view;
 	}
 
@@ -96,6 +95,11 @@ public class PodcastDetailFragment extends android.support.v4.app.Fragment imple
 			mPodcast.setPushId(pushId);
 			pushRef.setValue(mPodcast);
 
+			if (v == trackWebsite) {
+				Intent webIntent = new Intent(Intent.ACTION_VIEW,
+						Uri.parse(mPodcast.getTrackWebsite()));
+				startActivity(webIntent);
+			}
 
 			Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
 		}

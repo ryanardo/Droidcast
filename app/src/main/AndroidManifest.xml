@@ -23,7 +23,9 @@
             android:name=".ui.PodcastDetailActivity"
             android:label="@string/title_activity_podcast_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.PodcastListActivity"></activity>
+        <activity android:name=".ui.PodcastListActivity" />
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.CreateAccountActivity"></activity>
     </application>
 
 </manifest>

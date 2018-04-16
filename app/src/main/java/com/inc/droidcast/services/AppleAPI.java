@@ -1,5 +1,7 @@
 package com.inc.droidcast.services;
 
+import android.util.Log;
+
 import com.inc.droidcast.Constants;
 import com.inc.droidcast.models.Podcast;
 
@@ -19,65 +21,63 @@ import okhttp3.Response;
 
 public class AppleAPI {
 
-	public static void findPodcast(String podcast, Callback callback) {
+	public static void findPodcast(String trackTitle, Callback callback) {
 
 		OkHttpClient client = new OkHttpClient.Builder()
 				.build();
 
-		// building the api call/request
 		HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.ITUNES_BASE_URL).newBuilder();
-		urlBuilder.addQueryParameter(Constants.ITUNES_PODCAST_QUERY_PARAMETER, podcast);
+		urlBuilder.addQueryParameter(Constants.ITUNES_PODCAST_QUERY_PARAMETER, trackTitle);
+		urlBuilder.addQueryParameter("api_key",Constants.API_TOKEN);
+		urlBuilder.addQueryParameter("format", Constants.RESPONSE_FORMAT);
 		String url = urlBuilder.build().toString();
+		Log.d("URL Test :", url);
 
-		//create the api request
-		Request request = new Request.Builder().url(url).build();
+		Request request= new Request.Builder()
+				.url(url)
+				.build();
 
-		// execute the api request
 		Call call = client.newCall(request);
 		call.enqueue(callback);
 	}
 
-	public static ArrayList<Podcast> processResults(Response response) {
+	public ArrayList<Podcast> processResults(Response response) {
 		ArrayList<Podcast> podcasts = new ArrayList<>();
 
 		try {
-			String jsonData = response.body().toString();
-			JSONObject jsonPodcast = new JSONObject(jsonData);
-			JSONArray jsonPodcasts  = jsonPodcast.getJSONArray("results");
+			String jsonData = response.body().string();
+			JSONObject lastJSON = new JSONObject(jsonData);
+			JSONObject resultsJSON = lastJSON.getJSONObject("results");
+			JSONObject trackmatchesJSON = resultsJSON.getJSONObject("trackmatches");
+			JSONArray trackJSON = trackmatchesJSON.getJSONArray("track");
 
-			for (int i = 0; i < jsonPodcasts.length(); i++) {
-				JSONObject podcastJSON = jsonPodcasts.getJSONObject(i);
-				int artistId = podcastJSON.getInt("artistId");
-				int collectionId = podcastJSON.getInt("collectionId");
-				String trackId = podcastJSON.getString("trackId");
-				String artistName = podcastJSON.getString("artistName");
-				String collectionName = podcastJSON.getString("collectionName");
-				String trackName = podcastJSON.getString("trackName");
-				String feedUrl = podcastJSON.getString("feedUrl");
-				String trackViewUrl = podcastJSON.getString("trackViewUrl");
-				String releaseDate = podcastJSON.getString("releaseDate");
-				String trackCount = podcastJSON.getString("trackCount");
-				String primaryGenreName = podcastJSON.getString("primaryGenreName");
-				String artworkUrl30 = podcastJSON.getString("artworkUrl30");
-				String artworkUrl60 = podcastJSON.getString("artworkUrl60");
-				String artworkUrl100 = podcastJSON.getString("artworkUrl100");
-				String artworkUrl600 = podcastJSON.getString("artworkUrl600");
-
-				ArrayList<String> genreIds = new ArrayList<>();
-				JSONArray idGenreJSON = podcastJSON.getJSONArray("genreIds");
-				for (int j = 0; j < idGenreJSON.length(); i++) {
-					genreIds.add(idGenreJSON.get(j).toString());
+			for (int i = 0; i < trackJSON.length(); i++) {
+				JSONObject singleTrackJSON = trackJSON.getJSONObject(i);
+				String trackTitle = singleTrackJSON.getString("name");
+				String trackArtist = singleTrackJSON.getString("artist");
+				String trackWebsite = singleTrackJSON.getString("url");
+				ArrayList<String>images = new ArrayList<>();
+				JSONArray imageJSON = singleTrackJSON.getJSONArray("image");
+				for(int x = 0; x < imageJSON.length(); x++) {
+					images.add(imageJSON.getJSONObject(x).getString("#text"));
 				}
-
-				ArrayList<String> genres = new ArrayList<>();
-				JSONArray genresJSON = podcastJSON.getJSONArray("genres");
-				for (int j = 0; j < genresJSON.length(); i++) {
-					genres.add(genresJSON.get(j).toString());
+				int imageCount = images.size();
+				if(imageCount == 4 && "".equals(images.get(0))){
+					String img = "https://i.imgur.com/nqCuNyv.png";
+					Podcast podcast = new Podcast(trackTitle, trackArtist, img, trackWebsite);
+					podcasts.add(podcast);
+				}else{
+					String img = images.get(3);
+					Podcast podcast = new Podcast(trackTitle, trackArtist, img, trackWebsite);
+					podcasts.add(podcast);
+					Log.d("STUFF", podcasts.toString());
 				}
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		} catch (JSONException e) {
-            e.printStackTrace();
-        }
+			e.printStackTrace();
+		}
 		return podcasts;
 	}
 }
