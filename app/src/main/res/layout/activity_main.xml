@@ -3,15 +3,35 @@
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
 	android:layout_height = "match_parent"
-	tools:context = ".activities.MainActivity">
+	tools:context = ".ui.MainActivity">
+
+	<EditText
+		android:id="@+id/srch_podcastQuery"
+		android:layout_width="292dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/btn_createPlaylist"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:ems="10"
+		android:inputType="text"
+		android:text="Search" />
 
 	<Button
-		android:id="@+id/btn_playlist"
+		android:id="@+id/btn_podcasts"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:text="PLAYLIST" />
+		android:text="PODCASTS" />
+
+	<Button
+		android:id="@+id/btn_podcastSearch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentTop="true"
+		android:text="SEARCH"
+		tools:ignore="RtlCompat" />
 
 </RelativeLayout>
