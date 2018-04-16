@@ -1,14 +1,13 @@
-package com.inc.droidcast.activities;
+package com.inc.droidcast.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.inc.droidcast.R;
-import com.inc.droidcast.adapters.PlaylistMenuAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,8 +19,8 @@ public class PlaylistMenuActivity extends AppCompatActivity implements View.OnCl
 	@BindView(R.id.lst_playlists)
 	ListView lstPlaylists;
 
-	private String[] playlistNames;
-	private String[] playlistDescriptions;
+//	private String[] playlistNames;
+//	private String[] playlistDescriptions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,8 @@ public class PlaylistMenuActivity extends AppCompatActivity implements View.OnCl
 		ButterKnife.bind(this);
 		btnCreatePlaylist.setOnClickListener(this);
 
-		PlaylistMenuAdapter adapterPlaylist = new PlaylistMenuAdapter(this, android.R.layout.simple_list_item_1, playlistNames, playlistDescriptions);
-		lstPlaylists.setAdapter(adapterPlaylist);
+//		PlaylistMenuAdapter adapterPlaylist = new PlaylistMenuAdapter(this, android.R.layout.simple_list_item_1, playlistNames, playlistDescriptions);
+//		lstPlaylists.setAdapter(adapterPlaylist);
 
 	}
 
